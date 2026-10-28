@@ -1,0 +1,15 @@
+/Users/ameer/Desktop/dot-net/Persistence/bin/Debug/net8.0/Persistence.deps.json
+/Users/ameer/Desktop/dot-net/Persistence/bin/Debug/net8.0/Persistence.dll
+/Users/ameer/Desktop/dot-net/Persistence/bin/Debug/net8.0/Persistence.pdb
+/Users/ameer/Desktop/dot-net/Persistence/bin/Debug/net8.0/Domain.dll
+/Users/ameer/Desktop/dot-net/Persistence/bin/Debug/net8.0/Domain.pdb
+/Users/ameer/Desktop/dot-net/Persistence/obj/Debug/net8.0/Persistence.csproj.AssemblyReference.cache
+/Users/ameer/Desktop/dot-net/Persistence/obj/Debug/net8.0/Persistence.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ameer/Desktop/dot-net/Persistence/obj/Debug/net8.0/Persistence.AssemblyInfoInputs.cache
+/Users/ameer/Desktop/dot-net/Persistence/obj/Debug/net8.0/Persistence.AssemblyInfo.cs
+/Users/ameer/Desktop/dot-net/Persistence/obj/Debug/net8.0/Persistence.csproj.CoreCompileInputs.cache
+/Users/ameer/Desktop/dot-net/Persistence/obj/Debug/net8.0/Persiste.61C28332.Up2Date
+/Users/ameer/Desktop/dot-net/Persistence/obj/Debug/net8.0/Persistence.dll
+/Users/ameer/Desktop/dot-net/Persistence/obj/Debug/net8.0/refint/Persistence.dll
+/Users/ameer/Desktop/dot-net/Persistence/obj/Debug/net8.0/Persistence.pdb
+/Users/ameer/Desktop/dot-net/Persistence/obj/Debug/net8.0/ref/Persistence.dll
