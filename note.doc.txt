@@ -1,1 +1,4 @@
 https://docs.google.com/document/d/1x10-Makv7a3sK8XVo8WPy5Wn7FJJSz1bUvnFScv0HM4/edit?usp=sharing
+dotnet ef migrations add InitialCreate -p Persistence -s API
+dotnet ef remove
+dotnet ef database update
