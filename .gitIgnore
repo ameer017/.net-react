@@ -1,2 +1,6 @@
 CourseAssets/*
 .vscode
+
+# .NET Build artifacts and object files
+**/obj/
+**/bin/
