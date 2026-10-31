@@ -13,7 +13,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-
+builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -27,6 +27,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod()
+.WithOrigins("http://localhost:3001", "https://localhost:3001"));
 
 app.MapControllers();
 
