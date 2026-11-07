@@ -9,8 +9,9 @@ import {
 
 type Props = {
   activity: Activity;
+  handleSelectActivity: (id: string) => void;
 };
-export default function ActivityCard({ activity }: Props) {
+export default function ActivityCard({ activity, handleSelectActivity }: Props) {
   return (
     <Card sx={{ borderRadius: 3 }}>
       <CardContent>
@@ -28,7 +29,7 @@ export default function ActivityCard({ activity }: Props) {
         sx={{ display: "flex", justifyContent: "space-between", pb: 2 }}
       >
         <Chip label={activity.category} variant="outlined" />
-        <Button size="medium" variant="contained">
+        <Button size="medium" variant="contained" onClick={() => handleSelectActivity(activity.id)}>
           View
         </Button>
       </CardActions>

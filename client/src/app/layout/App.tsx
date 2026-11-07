@@ -6,6 +6,9 @@ import ActivityDashboard from "../../features/activities/dashboard/activity.dash
 
 function App() {
   const [activities, setActivities] = useState<Activity[]>([]);
+  const [selectedActivity, setSelectedActivity] = useState<
+    Activity | undefined
+  >(undefined);
 
   const fetchActivities = async () => {
     const response = await axios
@@ -18,6 +21,14 @@ function App() {
     fetchActivities();
   }, []);
 
+  const handleSelectActivity = (id: string) => {
+    setSelectedActivity(activities.find((x) => x.id === id));
+  };
+
+  const handleCancelSelectActivity = () => {
+    setSelectedActivity(undefined);
+  };
+
   return (
     <Box sx={{ bgcolor: "#eee" }}>
       <CssBaseline />
@@ -25,7 +36,12 @@ function App() {
 
       <Container maxWidth="xl" sx={{ mt: 3 }}>
         <Typography variant="h3">Reactivities</Typography>
-        <ActivityDashboard activities={activities} />
+        <ActivityDashboard
+          activities={activities}
+          handleSelectActivity={handleSelectActivity}
+          handleCancelSelectActivity={handleCancelSelectActivity}
+          selectedActivity={selectedActivity}
+        />
       </Container>
     </Box>
   );
