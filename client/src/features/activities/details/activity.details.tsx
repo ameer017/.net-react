@@ -10,11 +10,13 @@ import {
 type Props = {
   activity: Activity;
   handleCancelSelectActivity: () => void;
+  openForm: (id: string) => void;
 };
 
 export default function ActivityDetails({
   activity,
   handleCancelSelectActivity,
+  openForm,
 }: Props) {
   return (
     <Card sx={{ borderRadius: 3 }}>
@@ -32,7 +34,7 @@ export default function ActivityDetails({
       </CardContent>
 
       <CardActions>
-        <Button color="primary">Edit</Button>
+        <Button color="primary" onClick={() => openForm(activity.id)}>Edit</Button>
         <Button color="inherit" onClick={handleCancelSelectActivity}>
           Cancel
         </Button>

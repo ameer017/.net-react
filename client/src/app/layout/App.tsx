@@ -9,6 +9,7 @@ function App() {
   const [selectedActivity, setSelectedActivity] = useState<
     Activity | undefined
   >(undefined);
+  const [editMode, setEditMode] = useState(false);
 
   const fetchActivities = async () => {
     const response = await axios
@@ -29,10 +30,20 @@ function App() {
     setSelectedActivity(undefined);
   };
 
+  const handleOpenForm = (id?: string) => {
+    if (!id) handleCancelSelectActivity();
+    if (id) handleSelectActivity(id);
+    setEditMode(true);
+  };
+
+  const handleCloseForm = () => {
+    setEditMode(false);
+  };
+
   return (
     <Box sx={{ bgcolor: "#eee" }}>
       <CssBaseline />
-      <Navbar />
+      <Navbar openForm={handleOpenForm}  />
 
       <Container maxWidth="xl" sx={{ mt: 3 }}>
         <Typography variant="h3">Reactivities</Typography>
@@ -41,6 +52,9 @@ function App() {
           handleSelectActivity={handleSelectActivity}
           handleCancelSelectActivity={handleCancelSelectActivity}
           selectedActivity={selectedActivity}
+          editMode={editMode}
+          openForm={handleOpenForm}
+          closeForm={handleCloseForm}
         />
       </Container>
     </Box>
