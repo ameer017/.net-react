@@ -40,10 +40,32 @@ function App() {
     setEditMode(false);
   };
 
+  const handleSubmitForm = (activity: Activity) => {
+    if (!activity.id) {
+      const newActivity: Activity = {
+        ...activity,
+        id: crypto.randomUUID(),
+      };
+      setActivities((prev) => [...prev, newActivity]);
+      setSelectedActivity(newActivity);
+      return;
+    }
+
+    setActivities((prev) =>
+      prev.map((item) => (item.id === activity.id ? activity : item)),
+    );
+    setSelectedActivity(activity);
+  };
+
+
+  const handleDelete = (id: string) => {
+    setActivities(activities.filter(x => x.id !== id))
+  }
+
   return (
     <Box sx={{ bgcolor: "#eee" }}>
       <CssBaseline />
-      <Navbar openForm={handleOpenForm}  />
+      <Navbar openForm={handleOpenForm} />
 
       <Container maxWidth="xl" sx={{ mt: 3 }}>
         <Typography variant="h3">Reactivities</Typography>
@@ -55,6 +77,8 @@ function App() {
           editMode={editMode}
           openForm={handleOpenForm}
           closeForm={handleCloseForm}
+          submitForm={handleSubmitForm}
+          deleteActivity={handleDelete}
         />
       </Container>
     </Box>
