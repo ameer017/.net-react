@@ -11,7 +11,7 @@ export default function CreateActivityForm({
   activity,
   editMode,
 }: Props) {
-  const { updateActivity } = useActivities();
+  const { updateActivity, createActivity } = useActivities();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -26,6 +26,10 @@ export default function CreateActivityForm({
     if (activity) {
       data.id = activity.id;
       await updateActivity.mutateAsync(data as unknown as Activity);
+      closeForm();
+    }
+    if (!activity) {
+      await createActivity.mutateAsync(data as unknown as Activity);
       closeForm();
     }
   };
@@ -72,7 +76,11 @@ export default function CreateActivityForm({
           label="Date"
           variant="outlined"
           type="date"
-          defaultValue={activity?.date}
+          defaultValue={
+            activity?.date
+              ? new Date(activity.date).toISOString().split("T")[0]
+              : new Date().toISOString().split("T")[0]
+          }
           name="date"
         />
         <TextField
@@ -96,7 +104,7 @@ export default function CreateActivityForm({
             color="success"
             variant="contained"
             type="submit"
-            disabled={updateActivity.isPending}
+            disabled={updateActivity.isPending || createActivity.isPending}
           >
             Submit
           </Button>
