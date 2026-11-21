@@ -1,18 +1,18 @@
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { type FormEvent } from "react";
+import { useActivities } from "../../../lib/hooks/useActivities";
 type Props = {
   closeForm: () => void;
   activity?: Activity;
-  submitForm: (activity: Activity) => void;
   editMode: boolean;
 };
 export default function CreateActivityForm({
   closeForm,
   activity,
-  submitForm,
   editMode,
 }: Props) {
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const { updateActivity } = useActivities();
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
@@ -23,11 +23,11 @@ export default function CreateActivityForm({
       data[key] = value;
     });
 
-    if (activity) data.id = activity.id;
-
-    submitForm(data as unknown as Activity);
-
-    closeForm();
+    if (activity) {
+      data.id = activity.id;
+      await updateActivity.mutateAsync(data as unknown as Activity);
+      closeForm();
+    }
   };
 
   return (
@@ -52,39 +52,39 @@ export default function CreateActivityForm({
         <TextField
           label="Title"
           variant="outlined"
-          value={activity?.title}
+          defaultValue={activity?.title}
           name="title"
         />
         <TextField
           label="Description"
           multiline
           rows={3}
-          value={activity?.description}
+          defaultValue={activity?.description}
           name="description"
         />
         <TextField
           label="Category"
           variant="outlined"
-          value={activity?.category}
+          defaultValue={activity?.category}
           name="category"
         />
         <TextField
           label="Date"
           variant="outlined"
           type="date"
-          value={activity?.date}
+          defaultValue={activity?.date}
           name="date"
         />
         <TextField
           label="City"
           variant="outlined"
-          value={activity?.city}
+          defaultValue={activity?.city}
           name="city"
         />
         <TextField
           label="Venue"
           variant="outlined"
-          value={activity?.venue}
+          defaultValue={activity?.venue}
           name="venue"
         />
 
@@ -92,7 +92,12 @@ export default function CreateActivityForm({
           <Button color="inherit" onClick={closeForm}>
             Cancel
           </Button>
-          <Button color="success" variant="contained" type="submit">
+          <Button
+            color="success"
+            variant="contained"
+            type="submit"
+            disabled={updateActivity.isPending}
+          >
             Submit
           </Button>
         </Box>

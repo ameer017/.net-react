@@ -1,10 +1,8 @@
 import { Box, Container, CssBaseline, Typography } from "@mui/material";
 import { useState } from "react";
-import axios from "axios";
 import Navbar from "./navbar.layout";
 import ActivityDashboard from "../../features/activities/dashboard/activity.dashboard";
-import { useQuery } from "@tanstack/react-query";
-
+import { useActivities } from "../../lib/hooks/useActivities";
 
 function App() {
   const [selectedActivity, setSelectedActivity] = useState<
@@ -12,15 +10,7 @@ function App() {
   >(undefined);
   const [editMode, setEditMode] = useState(false);
 
-  const { data: activities, isPending } = useQuery({
-    queryKey: ["activities"],
-    queryFn: async () => {
-      const response = await axios.get<Activity[]>(
-        "https://localhost:5001/api/activities",
-      );
-      return response.data;
-    },
-  });
+  const { activities, isPending } = useActivities();
 
   const handleSelectActivity = (id: string) => {
     setSelectedActivity(activities!.find((x) => x.id === id));
@@ -40,27 +30,12 @@ function App() {
     setEditMode(false);
   };
 
-  const handleSubmitForm = (activity: Activity) => {
-    if (!activity.id) {
-      const newActivity: Activity = {
-        ...activity,
-        id: crypto.randomUUID(),
-      };
-      // setActivities((prev) => [...prev, newActivity]);
-      setSelectedActivity(newActivity);
-      return;
-    }
 
-    // setActivities((prev) =>
-    // prev.map((item) => (item.id === activity.id ? activity : item)),
-    // );
-    setSelectedActivity(activity);
-  };
 
   const handleDelete = (id: string) => {};
 
   return (
-    <Box sx={{ bgcolor: "#eee", minHeight: '100vh' }}>
+    <Box sx={{ bgcolor: "#eee", minHeight: "100vh" }}>
       <CssBaseline />
       <Navbar openForm={handleOpenForm} />
 
@@ -77,7 +52,6 @@ function App() {
             editMode={editMode}
             openForm={handleOpenForm}
             closeForm={handleCloseForm}
-            submitForm={handleSubmitForm}
             deleteActivity={handleDelete}
           />
         )}
